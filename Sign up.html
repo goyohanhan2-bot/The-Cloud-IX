@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Cloud IX | Sign Up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        :root {
+            --soft-blue: #ADD8E6;
+            --white: #7393B3;
+            --light-gray: #F0FFFF;
+            --dark-gray: #2c3e50;
+            --border-gray: #e9ecef;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: var(--white);
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--dark-gray);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .form-title {
+            color: var(--dark-gray);
+            font-size: 1.3rem;
+            text-align: center;
+            margin-bottom: 25px;
+            clear: both;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--dark-gray);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--border-gray);
+            border-radius: 20px;
+            background-color: var(--light-gray);
+            font-size: 1rem;
+            color: var(--dark-gray);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--soft-blue);
+        }
+
+        /* --- PLAN SELECTION STYLING (Like Netflix) --- */
+        .plans-section {
+            margin: 25px 0;
+            padding: 20px;
+            border: 1px solid var(--border-gray);
+            border-radius: 12px;
+            background-color: var(--light-gray);
+        }
+
+        .plans-title {
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .plan-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            background-color: var(--white);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .plan-option input {
+            width: auto;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .plan-info {
+            flex-grow: 1;
+        }
+
+        .plan-name {
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 1rem;
+        }
+
+        .plan-price {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-top: 3px;
+        }
+
+        .plan-features {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .plan-option:has(input:checked) {
+            border-color: var(--soft-blue);
+            background-color: #f0f8fc;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-signup {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            width: 100%;
+            padding: 10px;
+        }
+
+        .switch-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+
+        .switch-link {
+            color: var(--soft-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <span class="close-btn">&times;</span>
+        <h2 class="form-title">Join Cloud IX</h2>
+        <form>
+            <!-- Account Details -->
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" required placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" required placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label for="password">Create Password</label>
+                <input type="password" id="password" required minlength="6" placeholder="At least 6 characters">
+            </div>
+            <div class="form-group">
+                <label for="confirmpass">Confirm Password</label>
+                <input type="password" id="confirmpass" required minlength="6" placeholder="Re-enter your password">
+            </div>
+
+            <!-- PLAN SELECTION (Just like Netflix) -->
+            <div class="plans-section">
+                <h3 class="plans-title">Choose Your Plan</h3>
+                
+                <label class="plan-option">
+                    <input type="radio" name="plan" value="basic" required>
+                    <div class="plan-info">
+                        <div class="plan-name">Cloud Basic</div>
+                        <div class="plan-price">₱149 / month</div>
+                        <div class="plan-features">• Post & comment • 1 Device • Access to group stories</div>
+                    </div>
+                </label>
+
+                <label class="plan-option">
+                    <input type="radio" name="plan" value="standard">
+                    <div class="plan-info">
+                        <div class="plan-name">Cloud Standard</div>
+                        <div class="plan-price">₱249 / month</div>
+                        <div class="plan-features">• All Basic features • 2 Devices • Upload HD photos & videos</div>
+                    </div>
+                </label>
+
+                <label class="plan-option">
+                    <input type="radio" name="plan" value="premium">
+                    <div class="plan-info">
+                        <div class="plan-name">Cloud Premium</div>
+                        <div class="plan-price">₱349 / month</div>
+                        <div class="plan-features">• All Standard features • Unlimited Devices • Priority support • Exclusive events</div>
+                    </div>
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-signup">Create Account & Subscribe</button>
+            <p class="switch-text">
+                Already have an account?
+                <a href="Sign in.html" class="switch-link"> Sign In here</a>
+            </p>
+        </form>
+    </div>
+</body>
+</html>

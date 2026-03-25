@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The OG Gang | Cloud IX</title>
+    <style>
+        /* --- ORIGINAL DESIGN STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        :root {
+            --soft-blue: #a8d0e6;
+            --white: #fff;
+            --light-gray: #f8f9fa;
+            --dark-gray: #2c3e50;
+            --border-gray: #e9ecef;
+            --liked-red: #e74c3c;
+        }
+        body { 
+            background: var(--light-gray); 
+            padding-top: 130px; /* For merged header-nav */
+        }
+
+        /* --- MERGED HEADER + NAV (ORIGINAL DESIGN + COMBINED LAYOUT) --- */
+        .combined-header-nav {
+            background: var(--white);
+            border-bottom: 2px solid var(--soft-blue);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+            padding: 10px 0;
+        }
+        .header-nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 8px;
+        }
+        .site-title { 
+            font-size: 1.1rem; 
+            color: var(--dark-gray); 
+            cursor: pointer; 
+        }
+        .site-title span { 
+            color: var(--soft-blue); 
+            font-size: 0.9rem; 
+        }
+        .search-wrapper { 
+            flex-grow: 1; 
+            max-width: 400px; 
+        }
+        .search-bar {
+            width: 100%;
+            padding: 8px 15px;
+            border: 1px solid var(--border-gray);
+            border-radius: 20px;
+            background: var(--light-gray);
+        }
+        .header-buttons { 
+            display: flex; 
+            gap: 10px; 
+            align-items: center; 
+        }
+        .btn { 
+            padding: 8px 15px; 
+            border: none; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            transition: all 0.2s ease;
+        }
+        .btn-signin { 
+            background: var(--white); 
+            color: var(--dark-gray); 
+            border: 1px solid var(--soft-blue)!important; 
+        }
+        .btn-signup { 
+            background: var(--dark-gray); 
+            color: var(--white); 
+        }
+        .btn-about { 
+            background: var(--dark-gray); 
+            color: var(--white); 
+        }
+        .btn-liked {
+            color: var(--liked-red);
+            border-color: var(--liked-red);
+        }
+
+        /* --- NAV LINKS (UPDATED - REMOVED CONTACT AND PROFILE) --- */
+        .nav-links-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-gray);
+        }
+        .nav-links-row a { 
+            text-decoration: none; 
+            color: var(--dark-gray); 
+            font-weight: 500; 
+        }
+        .nav-links-row a:hover { 
+            color: var(--soft-blue); 
+        }
+    .home-content {
+    background: var(--white);
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 0 10px 20px;
+    line-height: 1.7;
+}
+
+
+        /* --- TOGGLE FOR ABOUT PANEL --- */
+        #toggleAbout { display: none; }
+
+        /* --- PAGE STRUCTURE (ORIGINAL DESIGN) --- */
+        .page { display: none; max-width: 1100px; margin: 0 auto; }
+        .active-page { display: block; }
+
+        /* --- PROFILE HEADER (ORIGINAL DESIGN) --- */
+        .profile-header {
+            background: var(--white);
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            max-width: 1100px;
+            margin: 0 auto 20px;
+            overflow: hidden;
+        }
+        .cover-photo { height: 180px; background: linear-gradient(var(--soft-blue), var(--white)); }
+        .profile-info {
+            padding: 0 20px 20px;
+            display: flex;
+            gap: 20px;
+            margin-top: -50px;
+        }
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            background: #eee;
+            object-fit: cover;
+        }
+        .profile-name h2 { color: var(--dark-gray); }
+
+        /* --- MAIN CONTENT (ORIGINAL DESIGN) --- */
+        .main-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 100%;
+            gap: 0;
+        }
+        #toggleAbout:checked ~ #home .main-content { grid-template-columns: 65% 35%; }
+        #toggleAbout:checked ~ #home .right-panel { display: block; }
+
+        .left-panel { padding: 0 10px; }
+        .create-post {
+            background: var(--white);
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .post-input-wrap { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+        .mini-avatar { 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            background: #eee;
+            object-fit: cover;
+        }
+        .post-input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--border-gray);
+            border-radius: 20px;
+            background: var(--light-gray);
+            cursor: pointer;
+        }
+        .post-actions { display: flex; gap: 20px; justify-content: center; }
+
+        .feed-item {
+            background: var(--white);
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .feed-img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .comments-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-gray);
+        }
+        .comment-input-wrap {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .comment-input {
+            flex-grow: 1;
+            padding: 8px 12px;
+            border: 1px solid var(--border-gray);
+            border-radius: 20px;
+            background: var(--light-gray);
+        }
+        .comment-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .comment-item {
+            padding: 8px 12px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        .right-panel {
+            display: none;
+            background: var(--white);
+            border-left: 1px solid var(--border-gray);
+            padding: 20px;
+        }
+        .sidebar-block { margin-bottom: 25px; }
+        .block-title {
+            font-size: 1.1rem;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--soft-blue);
+            margin-bottom: 15px;
+        }
+        .box-large { width: 100%; height: 100px; background: var(--light-gray); border-radius: 4px; margin-bottom: 10px; overflow: hidden; }
+        .box-medium { width: 100%; height: 50px; background: var(--light-gray); border-radius: 4px; margin: 5px 0; overflow: hidden; }
+
+        /* --- MODAL (FUNCTIONAL + ORIGINAL DESIGN) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .modal-content {
+            max-width: 500px;
+            margin: 100px auto;
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-gray);
+        }
+        .close-btn {
+            float: right;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--dark-gray);
+        }
+        .close-btn:hover { color: var(--soft-blue); }
+        #postText {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid var(--border-gray);
+            border-radius: 4px;
+            margin: 10px 0;
+            resize: none;
+        }
+        #uploadStatus {
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        .preview-area {
+            display: none;
+            margin-top: 10px;
+        }
+        .preview-img {
+            max-width: 100%;
+            max-height: 250px;
+            border-radius: 4px;
+        }
+
+        /* --- FOOTER (ORIGINAL DESIGN) --- */
+        .site-footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+        }
+  </style>
+</head>
+<body>
+    <!-- TOGGLE CHECKBOX -->
+    <input type="checkbox" id="toggleAbout" style="display: none;">
+
+    <!-- --- ORIGINAL DESIGN HEADER + MERGED NAV --- -->
+    <div class="combined-header-nav">
+        <div class="header-nav-inner">
+            <div class="top-row">
+                <h1 class="site-title" onclick="showPage('home')">THE OG GANG <span>(Cloud IX)</span></h1>
+                <div class="search-wrapper">
+                    <input type="text" class="search-bar" placeholder="Search adventures...">
+                </div>
+                <div class="header-buttons">
+                  <a href="Sign in.html">  
+                      <button class="btn btn-signin">Sign In</button> </a>
+                    <a href="Sign up.html">
+                    <button class="btn btn-signup">Sign Up</button> </a>
+                    <label for="toggleAbout" class="btn btn-about">About Cloud IX</label>
+                </div>
+            </div>
+            <div class="nav-links-row">
+                <a onclick="showPage('home')">HOME</a>
+                <a onclick="showPage('about')">ABOUT</a>
+                <a onclick="showPage('adventures')">ADVENTURES</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- ORIGINAL DESIGN HOME PAGE --- -->
+    <div id="home" class="page active-page">
+        <div class="profile-header">
+            <div class="cover-photo"></div>
+            <div class="profile-info">
+              <img class="profile-pic"src="profile.jpeg" alt="The OG Gang">
+                <div class="profile-name">
+                    <h2>The OG Gang</h2>
+                    <p>theoggang@email.com • @theoggang_cloudix"</p>
+                    <p><strong>contact us:</strong>  09184330565</p>
+                </div>
+            </div>
+        </div>
+        <div class="home-content">
+            <p>We built Cloud 9 to prove that distance can't weaken a
+                real connection. What started as a way for our group to
+                share problems and stay close has grown into a safe space for everyone. 
+                We believe in turning daily struggles into shared adventures—building a community where 
+                every voice is heard and every burden is lighter when shared.</p> 
+        </div>
+            <div class="main-content">
+            <div class="left-panel">
+                <div class="create-post">
+                    <div class="post-input-wrap">
+                        <!-- MINE  PROFILE PICTURE -->
+                        <img class="mini-avatar" src="profile.jpeg" alt="Your Profile">
+                        <div class="post-input" onclick="openModal()">What's on your mind, OG?</div>
+                    </div>
+                    <div class="post-actions">
+                        <button class="btn">📷 Photo</button>
+                        <button class="btn">📍 Check-in</button>
+                    </div>
+                </div>
+
+                <!-- ORIGINAL FEED ITEMS (WITH PROFILE PICS) -->
+                <div class="feed-item" data-likes="0">
+                    <div class="post-input-wrap">
+                        <!-- Jhean.'S PROFILE PICTURE -->
+                        <img class="mini-avatar" src="S2.jpeg" alt="Jhean V.">
+                        <div>
+                            <strong>Jhean V.</strong>
+                            <p>2 hours ago</p>
+                        </div>
+                    </div>
+                    <p>Throwback to Mount Doom climb! Who's in for round two?</p>
+                    <img class="feed-img" src="Mount.jpeg" alt="Trip">
+                    <div class="post-actions">
+                        <button class="btn btn-like" onclick="toggleLike(this)">👍 <span class="like-count">22k</span></button>
+                        <button class="btn btn-comment" onclick="toggleCommentBox(this)">💬 Comment</button>
+                    </div>
+                    <div class="comments-section" style="display: none;">
+                        <div class="comment-list"></div>
+                        <div class="comment-input-wrap">
+                            <input type="text" class="comment-input" placeholder="Write a comment...">
+                            <button class="btn btn-signup" onclick="addComment(this)">Post</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="feed-item" data-likes="0">
+                    <div class="post-input-wrap">
+                        <!-- Jhazmin.' PROFILE PICTURE -->
+                        <img class="mini-avatar" src="S4.jpeg" alt="Jhazmin R.">
+                        <div>
+                            <strong>Jhazmin R.</strong>
+                            <p>6 hours ago</p>
+                        </div>
+                    </div>
+                    <p>"Sunset glow wrapping around this towering landmark—standing tall as day turns to night."</p>
+                    <img class="feed-img" src="cir.jpeg" alt="Trip">
+                    <div class="post-actions">
+                        <button class="btn btn-like" onclick="toggleLike(this)">👍 <span class="like-count">32k</span></button>
+                        <button class="btn btn-comment" onclick="toggleCommentBox(this)">💬 Comment</button>
+                    </div>
+                    <div class="comments-section" style="display: none;">
+                        <div class="comment-list"></div>
+                        <div class="comment-input-wrap">
+                            <input type="text" class="comment-input" placeholder="Write a comment...">
+                            <button class="btn btn-signup" onclick="addComment(this)">Post</button>
+                        </div>
+                    </div>
+                </div>
+              <div class="feed-item" data-likes="0">
+                    <div class="post-input-wrap">
+                        <!-- Jhean.'S PROFILE PICTURE -->
+                        <img class="mini-avatar" src="S9.jpeg" alt="Aleia L.">
+                        <div>
+                            <strong>Aleia L.</strong>
+                            <p>4 hours ago</p>
+                        </div>
+                    </div>
+                    <p>Cloud!</p>
+                    <img class="feed-img" src="pic.jpeg" alt="Trip">
+                    <div class="post-actions">
+                        <button class="btn btn-like" onclick="toggleLike(this)">👍 <span class="like-count">22k</span></button>
+                        <button class="btn btn-comment" onclick="toggleCommentBox(this)">💬 Comment</button>
+                    </div>
+                    <div class="comments-section" style="display: none;">
+                        <div class="comment-list"></div>
+                        <div class="comment-input-wrap">
+                            <input type="text" class="comment-input" placeholder="Write a comment...">
+                            <button class="btn btn-signup" onclick="addComment(this)">Post</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="feed-item" data-likes="0">
+                    <div class="post-input-wrap">
+                        <!-- Jhean.'S PROFILE PICTURE -->
+                        <img class="mini-avatar" src="S8.jpeg" alt="sharmen.">
+                        <div>
+                            <strong>Sharmen D.</strong>
+                            <p>2 hours ago</p>
+                        </div>
+                    </div>
+                    <p>WOAH</p>
+                    <img class="feed-img" src="we.jpeg" alt="Trip">
+                    <div class="post-actions">
+                        <button class="btn btn-like" onclick="toggleLike(this)">👍 <span class="like-count">2k</span></button>
+                        <button class="btn btn-comment" onclick="toggleCommentBox(this)">💬 Comment</button>
+                    </div>
+                    <div class="comments-section" style="display: none;">
+                        <div class="comment-list"></div>
+                        <div class="comment-input-wrap">
+                            <input type="text" class="comment-input" placeholder="Write a comment...">
+                            <button class="btn btn-signup" onclick="addComment(this)">Post</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="feed-item" data-likes="0">
+                    <div class="post-input-wrap">
+                        <!--  PROFILE PICTURE -->
+                        <img class="mini-avatar" src="profile.jpeg" alt="The OG Gang">
+                        <div>
+                            <strong>The OG Gang</strong>
+                            <p>3 days ago</p>
+                        </div>
+                    </div>
+                    <p>Coastal trail trip next month – spots limited!</p>
+                    <div class="post-actions">
+                        <button class="btn btn-like" onclick="toggleLike(this)">👍 <span class="like-count">56k</span></button>
+                        <button class="btn btn-comment"
+onclick="toggleCommentBox(this)">💬 Comment</button>
+                    </div>
+                    <div class="comments-section" style="display: none;">
+                        <div class="comment-list"></div>
+                        <div class="comment-input-wrap">
+                            <input type="text" class="comment-input" placeholder="Write a comment...">
+                            <button class="btn btn-signup" onclick="addComment(this)">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="sidebar-block">
+                    <h3 class="block-title">About Cloud IX</h3>
+                    <div class="box-large">
+                        <img src="pic.jpeg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" alt="Cloud IX Group">
+                    </div>
+                    <p>9 Highschool friends bonded by adventure – "Cloud IX" is our joy spot!</p>
+                </div>
+                <div class="sidebar-block">
+                    <h3 class="block-title">Adventure Categories</h3>
+                    <div class="box-medium">
+                        <img src="Mo.jpeg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" alt="Mountain Hiking">
+                    </div>
+                    <div class="box-medium">
+                        <img src="Road.jpeg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" alt="Road trip">
+                    </div>
+                    <div class="box-medium">
+                        <img src="Building.jpeg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" alt="Camping Trips">
+                    </div>
+                </div>
+                <div class="sidebar-block">
+                    <h3 class="block-title">Upcoming Trips</h3>
+                    <div class="box-medium">
+                        <img src="cir.jpeg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" alt=museum>
+                    </div>
+                    <div class="box-medium">
+                        <img src="pool.jpeg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" alt="pool party">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- ABOUT PAGE --- -->
+    <div id="about" class="page">
+        <div class="profile-header">
+            <div class="cover-photo"></div>
+            <div class="profile-info">
+                <img class="profile-pic" src="profile.jpeg" alt="The OG Gang">
+                <div class="profile-name">
+                    <h2>The OG Gang</h2>
+                    <p>Founded 2025 </p>
+                </div>
+            </div>
+        </div>
+        <div class="main-content" style="background: var(--white); padding: 20px; border-radius: 8px;">
+            <h2>Our Story</h2>
+            <p style="margin: 15px 0;">We built Cloud 9 to prove that distance can't weaken a real connection. What started as a way for our group to share problems and stay close has grown into a safe space for everyone. We believe in turning daily struggles into shared adventures—building a community where every voice is heard and every burden is lighter when shared.</p>
+            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--border-gray);">
+                <h3 class="block-title">The 9 OGs</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 10px;">
+                    <div style="text-align: center; padding: 10px; border: 1px solid var(--border-gray); border-radius: 4px;">
+                        <img class="mini-avatar" src="S2.jpeg" alt="Jhean V.">
+                        <p><strong>Jhean V..</strong></p>
+                        <p>Mountain Lead</p>
+                    </div>
+                    <div style="text-align: center; padding: 10px; border: 1px solid var(--border-gray); border-radius: 4px;">
+                        <img class="mini-avatar" src="S8.jpeg" alt="Sharmen D.">
+                        <p><strong>Sharmen D.</strong></p>
+                        <p>Coastal Guide</p>
+                    </div>
+                    <div style="text-align: center; padding: 10px; border: 1px solid var(--border-gray); border-radius: 4px;">
+                        <img class="mini-avatar" src="S3.jpeg" alt="angela.">
+                        <p><strong>Angela L.</strong></p>
+                        <p>Camping Expert</p>
+                    </div>
+                    <div style="text-align: center; padding: 10px; border: 1px solid var(--border-gray); border-radius: 4px;">
+                        <img class="mini-avatar" src="S5.jpeg" alt="Janine M.">
+                        <p><strong>Janine M.</strong></p>
+                        <p>Photographer</p>
+                    </div>
+                    <div style="text-align: center; padding: 10px; border: 1px solid var(--border-gray); border-radius: 4px;">
+                        <img class="mini-avatar" src="S7.jpeg" alt="Elias G.">
+                        <p><strong>Elias G.</strong></p>
+                        <p>Trail Planner</p>
+                    </div>
+                    <div style="text-align: center; padding: 10px; border: 1px solid var(--border-gray); border-radius: 4px;">
+                        <img class="mini-avatar" src="S1.jpeg" alt="Naiomi F.">
+                        <p><strong>Naiomi F.</strong></p>
+                        <p>First Aid Lead</p>
+                    </div>
+                    <div style="text-align: center; padding: 10px; border: 1px solid var(--border-gray); border-radius: 4px;">
+                        <img class="mini-avatar" src="S4.jpeg" alt="Jhazmin R.">
+                        <p><strong>Jhazmin R.</strong></p>
+                        <p>Equipment Manager</p>
+                    </div>
+                    <div style="text-align: center; padding: 10px; border: 1px solid var(--border-gray); border-radius: 4px;">
+                        <img class="mini-avatar" src="S9.jpeg" alt="aleia L.">
+                        <p><strong>Aleia L.</strong></p>
+                        <p>Food Coordinator</p>
+                    </div>
+                    <div style="text-align: center; padding: 10px; border: 1px solid var(--border-gray); border-radius: 4px;">
+                        <img class="mini-avatar" src="S6.jpeg" alt="anne j.">
+                        <p><strong>Anne J.</strong></p>
+                        <p>Tour guide</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- ADVENTURES PAGE --- -->
+    <div id="adventures" class="page">
+        <div class="main-content" style="background: var(--white); padding: 20px; border-radius: 8px; border: 1px solid var(--border-gray);">
+            <h2>Our Adventures</h2>
+            <p style="margin: 10px 0;">Explore our past and planned trips across the Philippines:</p>
+            
+            <div style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div style="border: 1px solid var(--border-gray); border-radius: 8px; padding: 15px;">
+                    <h4>"Moments Stilled in Sky and Wire"</h4>
+                    <p>Date: december 6, 2025</p>
+                    <img src="B.jpeg" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 4px; margin: 10px 0;">
+                    <p>"Stopped by this spot and just stood there for a while, watching the light paint soft colors across the sky while the world felt quiet and still."!</p>
+                </div>
+                    <div style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div style="border: 1px solid var(--border-gray); border-radius: 8px; padding: 15px;">
+                    <h4>"Golden Hour Under the Old Tree"</h4>
+                    <p>Date: March 4, 2025</p>
+                    <img src="5.jpg" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 4px; margin: 10px 0;">
+                    <p>Pulled over at this giant tree we’ve always passed by, and finally took the time to stay—golden light spilling over the grass, neighbors moving slow, and it felt like the whole neighborhood was breathing easy at the end of the day."</p>
+                </div>
+                <div style="border: 1px solid var(--border-gray); border-radius: 8px; padding: 15px;">
+                    <h4>"Heroes in Bronze"</h4>
+                    <p>Date: July 2025 (Planned)</p>
+                    <img src="3.jpg" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 4px; margin: 10px 0;">
+                    <p>"Stood before this monument and let the stories sink in—figures frozen in courage, light softening their edges, and it felt like we were standing right between the past that shaped us and the future we’re building."</p> 
+                </div>                                 
+            </div>
+        </div>
+    </div>
+
+    <!-- --- POST MODAL --- -->
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3>Create New Post</h3>
+            <textarea id="postText" placeholder="Share your adventure story..." style="width: 100%; height: 100px; padding: 10px; margin: 10px 0; border: 1px solid var(--border-gray); border-radius: 4px;"></textarea>
+            
+            <div style="margin: 10px 0;">
+                <label class="btn btn-signup" for="photoInput">📷 Add Photo</label>
+                <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                <div id="previewContainer" style="display: none; margin-top: 10px;">
+                    <img id="previewImg" style="max-width: 100%; max-height: 250px; border-radius: 4px;">
+                    <button class="btn btn-signin" onclick="clearPreview()" style="margin-top: 5px;">Clear Photo</button>
+                </div>
+            </div>
+
+            <button class="btn btn-signup" onclick="submitPost()">Post Now</button>
+        </div>
+    </div>
+
+    <!-- --- FOOTER --- -->
+    <div class="site-footer">
+        <p>&copy; 2025 The OG Gang | Cloud IX • Quezon City, Metro Manila</p>
+    </div>
+
+    <!-- --- FUNCTIONAL SCRIPTS --- -->
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
+            document.getElementById(pageId).style.display = 'block';
+        }
+
+        // Modal Controls
+        function openModal() {
+            document.getElementById('postModal').style.display = 'block';
+        }
+        function closeModal() {
+            document.getElementById('postModal').style.display = 'none';
+            document.getElementById('postText').value = '';
+            document.getElementById('photoInput').value = '';
+            document.getElementById('previewContainer').style.display = 'none';
+        }
+
+        // Photo Preview
+        document.getElementById('photoInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('previewImg').src = event.target.result;
+                    document.getElementById('previewContainer').style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function clearPreview() {
+            document.getElementById('photoInput').value = '';
+            document.getElementById('previewContainer').style.display = 'none';
+        }
+
+        // Submit Post
+        function submitPost() {
+            const text = document.getElementById('postText').value.trim();
+            const file = document.getElementById('photoInput').files[0];
+            
+            if (!text && !file) {
+                alert('Add text or a photo to post!');
+                return;
+            }
+
+            const newPost = document.createElement('div');
+            newPost.className = 'feed-item';
+            newPost.setAttribute('data-likes', '0');
+            newPost.style.margin = '10px 0';
+            newPost.style.padding = '15px';
+            newPost.style.background = 'var(--white)';
+            newPost.style.border = '1px solid var(--border-gray)';
+            newPost.style.borderRadius = '8px';
+
+            let postHTML = `<div class="post-input-wrap">
+                                <img class="mini-avatar" src="https://via.placeholder.com/40x40.png?text=YOU" alt="Your Profile">
+                                <div>
+                                    <strong>You</strong>
+                                    <p>Just now</p>
+                                </div>
+                            </div>
+                            <p>${text}</p>`;
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    postHTML += `<img src="${event.target.result}" style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 4px; margin: 10px 0;">`;
+                    addPostActions(newPost, postHTML);
+                }
+                reader.readAsDataURL(file);
+            } else {
+                addPostActions(newPost, postHTML);
+            }
+        }
+
+        // Helper function to add action buttons
+        function addPostActions(postElement, content) {
+            content += `<div class="post-actions">
+                            <button class="btn btn-like" onclick="toggleLike(this)">👍 <span class="like-count">0</span></button>
+                            <button class="btn btn-comment" onclick="toggleCommentBox(this)">💬 Comment</button>
+                        </div>
+                        <div class="comments-section" style="display: none;">
+                            <div class="comment-list"></div>
+                            <div class="comment-input-wrap">
+                                <input type="text" class="comment-input" placeholder="Write a comment...">
+                                <button class="btn btn-signup" onclick="addComment(this)">Post</button>
+                            </div>
+                        </div>`;
+            
+            postElement.innerHTML = content;
+            const feedContainer = document.querySelector('#home .left-panel');
+            const lastPost = feedContainer.querySelector('.feed-item:last-child');
+            if (lastPost) {
+                feedContainer.insertBefore(postElement, lastPost.nextSibling);
+            } else {
+                feedContainer.appendChild(postElement);
+            }
+            closeModal();
+        }
+
+        // Like Functionality
+        function toggleLike(button) {
+            const likeCount = button.querySelector('.like-count');
+            const post = button.closest('.feed-item');
+            let
+currentLikes = parseInt(post.getAttribute('data-likes'));
+
+            if (button.classList.contains('btn-liked')) {
+                button.classList.remove('btn-liked');
+                currentLikes -= 1;
+            } else {
+                button.classList.add('btn-liked');
+                currentLikes += 1;
+            }
+            
+            likeCount.textContent = currentLikes;
+            post.setAttribute('data-likes', currentLikes);
+        }
+
+        // Comment Functionality
+        function toggleCommentBox(button) {
+            const post = button.closest('.feed-item');
+            const commentsSection = post.querySelector('.comments-section');
+            commentsSection.style.display = commentsSection.style.display === 'none' || !commentsSection.style.display ? 'block' : 'none';
+        }
+
+        function addComment(button) {
+            const inputWrap = button.closest('.comment-input-wrap');
+            const input = inputWrap.querySelector('.comment-input');
+            const commentText = input.value.trim();
+            
+            if (!commentText) return;
+
+            const commentsSection = button.closest('.comments-section');
+            const commentList = commentsSection.querySelector('.comment-list');
+
+            const newComment = document.createElement('div');
+            newComment.className = 'comment-item';
+            newComment.innerHTML = `<strong>You</strong>: ${commentText}`;
+
+            commentList.appendChild(newComment);
+            input.value = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back | Sign In</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        :root {
+            --soft-blue: #ADD8E6;
+            --white: #7393B3;
+            --light-gray: #F0FFFF;
+            --dark-gray: #2c3e50;
+            --border-gray: #e9ecef;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: var(--white);
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--dark-gray);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .form-title {
+            color: var(--dark-gray);
+            font-size: 1.3rem;
+            text-align: center;
+            margin-bottom: 25px;
+            clear: both;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--dark-gray);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--border-gray);
+            border-radius: 20px;
+            background-color: var(--light-gray);
+            font-size: 1rem;
+            color: var(--dark-gray);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--soft-blue);
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-signin {
+            background-color: var(--white);
+            color: var(--dark-gray);
+            border: 1px solid var(--soft-blue);
+            width: 100%;
+            padding: 10px;
+        }
+
+        .switch-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+
+        .switch-link {
+            color: var(--soft-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <span class="close-btn">&times;</span>
+        <h2 class="form-title">Welcome </h2>
+        <form>
+            <div class="form-group">
+                <label for="signin-email">Email Address</label>
+                <input type="email" id="signin-email" required placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label for="signin-pass">Password</label>
+                <input type="password" id="signin-pass" required placeholder="Enter your password">
+            </div>
+            <button type="submit" class="btn btn-signin">Sign In</button>
+            <p class="switch-text">
+                Don't have an account?
+                <a href="Sign up.html" class="switch-link"> Sign Up here</a>
+            </p>
+        </form>
+    </div>
+</body>
+</html>
